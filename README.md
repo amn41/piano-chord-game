@@ -11,7 +11,7 @@ Based on https://github.com/newlandsvalley/chord-editor
 
 - [ ] add support for all minor chords
 - [ ] add support for all inversions (randomize)
-- [ ] add seventh chords
+- [ ] add seventh chords, extensions, alterations, advanced voicings
 - [ ] allow users to select which chord types to include
 - [ ] find a better solution for quasi-randomness (at least ensure don't stay on same chord)
 
