@@ -16,7 +16,6 @@ You can edit this file as you like.
   , "either"
   , "enums"
   , "foldable-traversable"
-  , "foreign"
   , "halogen"
   , "halogen-components"
   , "integers"
@@ -32,7 +31,6 @@ You can edit this file as you like.
   , "routing"
   , "routing-duplex"
   , "soundfonts"
-  , "stringutils"
   , "strings"
   , "transformers"
   , "tuples"
@@ -41,7 +39,6 @@ You can edit this file as you like.
   , "web-html"
   , "web-uievents"
   , "web-events"
-  , "yoga-json"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
