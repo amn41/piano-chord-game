@@ -17,6 +17,20 @@ a {
   padding: 2px 1px 0;
 }
 
+/* Specific style for the chord name display */
+#chord-name-display {
+  font-family: 'Roboto', sans-serif;  /* Example font. You can choose another one */
+  font-size: 1.5em;                          /* Adjust size as needed */
+  font-weight: bold;                         /* Make it bolder for emphasis */
+  color: #203a43;                            /* Choose a color that complements the background */
+  padding: 10px 15px;                        /* Add some padding around the text */
+  border-radius: 6px;                        /* Round the corners a bit for a softer look */
+  background-color: rgba(255, 255, 255, 0.1);/* Slight white background for contrast, with transparency */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);/* Subtle shadow for depth */
+  margin: 10px 0;                            /* Adjust spacing as needed */
+}
+
+
 a:link {
   color: #265301;
 }
