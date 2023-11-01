@@ -1,3 +1,20 @@
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  #chord-name-edit {
+    width: 80%;
+  }
+
+  #fret-number-edit {
+    width: 50px;
+  }
+}
+
+
 body, label, .text-input {
   font-family: 'Roboto', sans-serif;
 }
@@ -91,6 +108,10 @@ label {
   color: darkGray;
 }
 
+canvas {
+  max-width: 100%;
+  display: block; /* removes any margin or space below the canvas */
+}
 
 #canvas:hover {
   box-shadow: 0 0;
