@@ -117,5 +117,60 @@ minorTriads = fromFoldable
   , Tuple "Bm" bMinorTriad
   ]
 
+-- Seventh (Dominant) Chords
+
+cSeventh :: Fingering
+cSeventh = [0, 4, 7, 10] -- C, E, G, B♭
+
+cSharpSeventh :: Fingering
+cSharpSeventh = [1, 5, 8, 11] -- C#, F, G#, B
+
+dSeventh :: Fingering
+dSeventh = [2, 6, 9, 0] -- D, F#, A, C
+
+dSharpSeventh :: Fingering
+dSharpSeventh = [3, 7, 10, 1] -- D#, G, A#, C#
+
+eSeventh :: Fingering
+eSeventh = [4, 8, 11, 2] -- E, G#, B, D
+
+fSeventh :: Fingering
+fSeventh = [5, 9, 0, 3] -- F, A, C, D#
+
+fSharpSeventh :: Fingering
+fSharpSeventh = [6, 10, 1, 4] -- F#, A#, C#, E
+
+gSeventh :: Fingering
+gSeventh = [7, 11, 2, 5] -- G, B, D, F
+
+gSharpSeventh :: Fingering
+gSharpSeventh = [8, 0, 3, 6] -- G#, C, D#, F#
+
+aSeventh :: Fingering
+aSeventh = [9, 1, 4, 7] -- A, C#, E, G
+
+aSharpSeventh :: Fingering
+aSharpSeventh = [10, 2, 5, 8] -- A#, D, F, G#
+
+bSeventh :: Fingering
+bSeventh = [11, 3, 6, 9] -- B, D#, F#, A
+
+seventhChords :: ChordMap
+seventhChords = fromFoldable
+  [ Tuple "C7" cSeventh
+  , Tuple "C#7" cSharpSeventh
+  , Tuple "D7" dSeventh
+  , Tuple "D#7" dSharpSeventh
+  , Tuple "E7" eSeventh
+  , Tuple "F7" fSeventh
+  , Tuple "F#7" fSharpSeventh
+  , Tuple "G7" gSeventh
+  , Tuple "G#7" gSharpSeventh
+  , Tuple "A7" aSeventh
+  , Tuple "A#7" aSharpSeventh
+  , Tuple "B7" bSeventh
+  ]
+
+
 chordMap :: ChordMap
-chordMap = majorTriads `union` minorTriads
+chordMap = majorTriads `union` minorTriads `union` seventhChords
