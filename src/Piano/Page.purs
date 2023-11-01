@@ -145,10 +145,13 @@ component =
       then renderChordName state
       else renderRevealChordButton state
 
+
   renderChordName :: State -> H.ComponentHTML Action ChildSlots m
   renderChordName state =
-    HH.div_
+    HH.div
+      [ HP.class_ $ ClassName "chord-name-display" ]
       [ HH.text $ "Chord: " <> state.chordShape.name ]
+
 
   renderRevealChordButton :: State -> H.ComponentHTML Action ChildSlots m
   renderRevealChordButton state =
