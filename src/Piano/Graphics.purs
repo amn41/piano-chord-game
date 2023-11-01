@@ -214,7 +214,6 @@ fingeredKey coords =
 -- | display the entire chord shape described by the fingering
 displayChord :: ChordShape -> Drawing
 displayChord chord =
-  title chord.name
-    <> whiteKeys chord.fingering
-    <>
-      blackKeys chord.fingering
+  whiteKeys chord.fingering
+  <>
+  blackKeys chord.fingering
