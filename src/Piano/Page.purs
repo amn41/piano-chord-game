@@ -11,6 +11,7 @@ import Prelude
 import Effect (Effect)
 import Effect.Aff.Class (class MonadAff)
 import Effect.Now
+import Effect.Random (randomInt)
 import Halogen.Aff as HA
 import Halogen as H
 import Halogen (liftEffect)
@@ -126,7 +127,7 @@ component =
     HH.div_
       [ HH.h1
           [ HP.class_ (H.ClassName "center") ]
-          [ HH.text "What Chord is This?" ]
+          [ HH.text "Spot That Chord" ]
       , HH.canvas
           [ HP.id "canvas"
           , HE.onClick canvasClickHandler
@@ -259,9 +260,7 @@ component =
       state <- H.get    
       let chordNames = fromFoldable (keys chordMap) :: Array String
       let chordsLength = size chordMap :: Int
-      currTime <- liftEffect nowTime
-      let sec = fromEnum $ second currTime :: Int
-      let randomIndex = sec `mod` chordsLength :: Int
+      randomIndex <- liftEffect (randomInt 0 (chordsLength - 1))
       let chosenChordName = index chordNames randomIndex
       case chosenChordName of
         Just name -> do

@@ -28,6 +28,7 @@ You can edit this file as you like.
   , "ordered-collections" 
   , "partial"
   , "prelude"
+  , "random"
   , "routing"
   , "routing-duplex"
   , "soundfonts"
