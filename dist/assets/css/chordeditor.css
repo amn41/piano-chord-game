@@ -1,130 +1,167 @@
-@media (max-width: 768px) {
-  body {
-    padding: 0 10px;
-  }
+/* CSS Variables */
+:root {
+  --primary: #7c3aed;
+  --secondary: #f472b6;
+  --dark: #1a1a1a;
+  --light: #f8fafc;
+  --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
 }
 
-@media (max-width: 768px) {
-  #chord-name-edit {
-    width: 80%;
-  }
-
-  #fret-number-edit {
-    width: 50px;
-  }
-}
-
-
-body, label, .text-input {
-  font-family: 'Roboto', sans-serif;
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 20px 40px;
+  background: var(--dark);
+  color: var(--light);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(124,58,237,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(244,114,182,0.15) 0%, transparent 50%);
+  animation: gradientShift 20s ease infinite;
 }
-
 
 h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2.5rem;
+  margin: 2rem 0;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(124,58,237,0.4);
 }
 
-a {
-  outline: none;
-  text-decoration: none;
-  padding: 2px 1px 0;
-}
+/* Interactive Elements */
 
-/* Specific style for the chord name display */
-#chord-name-display {
-  font-family: 'Roboto', sans-serif;  /* Example font. You can choose another one */
-  font-size: 1.5em;                          /* Adjust size as needed */
-  font-weight: bold;                         /* Make it bolder for emphasis */
-  color: #203a43;                            /* Choose a color that complements the background */
-  padding: 10px 15px;                        /* Add some padding around the text */
-  border-radius: 6px;                        /* Round the corners a bit for a softer look */
-  background-color: rgba(255, 255, 255, 0.1);/* Slight white background for contrast, with transparency */
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);/* Subtle shadow for depth */
-  margin: 10px 0;                            /* Adjust spacing as needed */
-}
-
-
-a:link {
-  color: #265301;
-}
-
-a:visited {
-  color: #437a16;
-}
-
-a:focus {
-  border-bottom: 1px solid;
-  background: #bae498;
-}
-
-a:hover {
-  border-bottom: 1px solid;
-  background: #cdfeaa;
-}
-
-a:active {
-  background: #265301;
-  color: #cdfeaa;
-}
-
-body {
-  padding: 0 40px 0 40px;
-}
-
-label {
-  display: inline-block;
-  font-family: "Times New Roman";
-  font-size: 1.2em;
-  /* width: 7em; */
-}
-
-
-.hoverable, .unhoverable {
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px; /* increased padding */
-  margin: 20px 40px 20px 0; /* increased margin */
-  font-size: 1.5em; /* increased font size */
-  transition: 500ms;
+.button-group {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .hoverable {
-  background-color: #67d665;  /* lighter green */
-  color: black;
-  box-shadow: 3px 3px #669966;  /* darker green */
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--light);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.1em; /* Adjusted to match your original scale */
+  margin: 15px 20px 15px 0; /* Keeping your original margin */
 }
 
 .hoverable:hover {
-  box-shadow: 0 0;
-  background-color: #669966;   /* darker green */
+  background: linear-gradient(45deg, #7c3aed, #f472b6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124,58,237,0.3);
+  color: white;
 }
 
+.hoverable:active {
+  transform: translateY(0);
+}
+
+/* Keep your original unhoverable style but adapt colors */
 .unhoverable {
-  background-color: lightGray;
-  color: darkGray;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  border-radius: 12px;
 }
 
-canvas {
-  max-width: 100%;
-  display: block; /* removes any margin or space below the canvas */
+
+/* Canvas Styles */
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+  .canvas-container {
+    margin: 1rem 0;
+  }
+  
+  #canvas {
+    width: 100% !important; /* Ensure canvas fills container */
+    max-width: 400px; /* Optional: set max width for mobile */
+  }
+}
+
+#canvas {
+  margin: 0 auto; /* Fallback center alignment */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin: 2rem 0;
+  transition: transform 0.3s ease;
 }
 
 #canvas:hover {
-  box-shadow: 0 0;
-  /* background-color: #d2ed97;  */  /* very light green */
-  background-color: #daffa4;   /* very light green */
-  transition: 750ms;
+  transform: scale(1.02);
 }
 
+.title-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.main-title {
+  /* If you need to override any existing h1 styles */
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Add responsive adjustments */
+@media (max-width: 768px) {
+  .title-container {
+    margin: 1rem 0;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+}
+
+/* Form Elements */
 .text-input {
   margin: 10px 2px 0 20px;
+  padding: 8px 12px;
   font-size: 1.2em;
-  font-family: "Times New Roman", monospace;
-  background-color: Beige;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--light);
+  transition: all 0.3s ease;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
 }
 
 #chord-name-edit {
@@ -135,13 +172,76 @@ canvas {
   width: 40px;
 }
 
-.menu {
-  font-size: 1.6em;
-  list-style: none;
+/* Chord Display */
+#chord-name-display {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--light);
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 15px 0;
 }
 
-.scaling-slider {
-  display: inline-block;
-  margin: 10px 2px 0 20px;
-  width: 130px;
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.reveal-glowing {
+  animation: glow 1s ease-in-out;
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 5px var(--primary)); }
+  50% { filter: drop-shadow(0 0 20px var(--primary)); }
+  100% { filter: drop-shadow(0 0 5px var(--primary)); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  #canvas {
+    width: 90%;
+    height: auto;
+  }
+
+  #chord-name-edit {
+    width: 80%;
+  }
+
+  #fret-number-edit {
+    width: 50px;
+  }
+
+  .hoverable {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1em;
+  }
+}
+
+/* Utility Classes */
+.button-group {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.2rem;
 }

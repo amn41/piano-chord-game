@@ -124,21 +124,25 @@ component =
 
   render :: State -> H.ComponentHTML Action ChildSlots m
   render state =
-    HH.div_
-      [ HH.h1
-          [ HP.class_ (H.ClassName "center") ]
-          [ HH.text "Spot That Chord" ]
-      , HH.canvas
-          [ HP.id "canvas"
-          , HE.onClick canvasClickHandler
-          , HP.height canvasHeight
-          , HP.width canvasWidth
-          ]
-      , renderChordNameOrRevealButton state
-      , renderPlayButton state
-      , renderNewChordButton state
-      , HH.text state.errorText
-      ]
+      HH.div_
+        [ HH.div  -- New title container
+            [ HP.class_ (ClassName "title-container") ]
+            [ HH.h1
+                [ HP.classes [ ClassName "center", ClassName "main-title" ] ]
+                [ HH.text "Spot That Chord" ]
+            ]
+        , HH.div
+            [ HP.class_ (ClassName "canvas-container") ]
+            [ HH.canvas
+                [ HP.id "canvas"
+                , HE.onClick canvasClickHandler
+                , HP.height canvasHeight
+                , HP.width canvasWidth
+                ]
+            ]
+        , renderButtonGroup state
+        , HH.text state.errorText
+        ]    
 
   renderChordNameOrRevealButton :: State -> H.ComponentHTML Action ChildSlots m
   renderChordNameOrRevealButton state =
@@ -154,15 +158,23 @@ component =
       [ HH.text $ "Chord: " <> state.chordShape.name ]
 
 
+  renderButtonGroup :: State -> H.ComponentHTML Action ChildSlots m
+  renderButtonGroup state =
+    HH.div [ HP.class_ (ClassName "button-group") ]
+      [ renderRevealChordButton state
+      , renderPlayButton state
+      , renderNewChordButton state
+      ]
+
   renderRevealChordButton :: State -> H.ComponentHTML Action ChildSlots m
   renderRevealChordButton state =
-    HH.div_
-      [  HH.button
-          [ HE.onClick \_ -> RevealChordName
-          , HP.class_ $ ClassName "hoverable"
-          , HP.enabled true
-          ]
-          [ HH.text "Reveal Chord" ]
+    HH.button 
+      [ HE.onClick \_ -> RevealChordName
+      , HP.class_ $ ClassName "hoverable"
+      , HP.enabled true
+      ]  
+      [ HH.i [ HP.classes [ ClassName "fas", ClassName "fa-eye", ClassName "icon" ] ] []
+      , HH.text "Reveal Chord"
       ]
 
   renderPlayButton :: State -> H.ComponentHTML Action ChildSlots m
@@ -174,14 +186,14 @@ component =
       className =
         if enabled then "hoverable" else "unhoverable"
     in
-      HH.div_
-        [ HH.button
-            [ HE.onClick \_ -> PlayChord
-            , HP.class_ $ ClassName className
-            , HP.enabled enabled
-            ]
-            [ HH.text "Hear Chord" ]
-        ]
+      HH.button
+          [ HE.onClick \_ -> PlayChord
+          , HP.class_ $ ClassName className
+          , HP.enabled enabled
+          ]
+          [ HH.i [ HP.classes [ ClassName "fas", ClassName "fa-music", ClassName "icon" ] ] []
+          , HH.text "Hear Chord"
+          ]
 
   renderNewChordButton :: State -> H.ComponentHTML Action ChildSlots m
   renderNewChordButton state =
@@ -192,14 +204,14 @@ component =
       className =
         if enabled then "hoverable" else "unhoverable"
     in
-      HH.div_
-        [ HH.button
+      HH.button
             [ HE.onClick \_ -> SetRandomChord
             , HP.class_ $ ClassName className
             , HP.enabled enabled
             ]
-            [ HH.text "New Chord" ]
-        ]
+            [ HH.i [ HP.classes [ ClassName "fas", ClassName "fa-redo", ClassName "icon" ] ] []
+            , HH.text "New Chord"
+            ]
 
   handleAction ∷ Action → H.HalogenM State Action ChildSlots o m Unit
   handleAction = case _ of
