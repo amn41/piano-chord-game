@@ -52,7 +52,5 @@ component =
       pure (Just a)
 
   render :: State -> H.ComponentHTML Action ChildSlots m
-  render { route } = case route of
-    Just r -> case r of
-      Piano -> HH.slot (Proxy :: Proxy "piano") unit Piano.component unit absurd
-    Nothing -> HH.slot (Proxy :: Proxy "piano") unit Piano.component unit absurd
+  render _ =
+    HH.slot (Proxy :: Proxy "piano") unit Piano.component unit absurd

@@ -95,6 +95,31 @@ whiteKeyLength :: Number
 whiteKeyLength =
   cellSize * 9.0
 
+-- | highlight color for selected keys
+highlightColor :: Color
+highlightColor =
+  graytone 0.8
+
+-- | border width for white keys
+whiteKeyBorder :: Number
+whiteKeyBorder =
+  2.0
+
+-- | border width for black keys
+blackKeyBorder :: Number
+blackKeyBorder =
+  1.5
+
+-- | radius of the selection indicator circle
+circleRadiusRatio :: Number
+circleRadiusRatio =
+  0.3
+
+-- | font size for title display
+titleFontSize :: Int
+titleFontSize =
+  60
+
 whiteKey :: Fingering -> Int -> Drawing
 whiteKey fingering n =
   let
@@ -103,7 +128,7 @@ whiteKey fingering n =
     keyNumber :: Int
     keyNumber = fromMaybe (-1) $ index whiteKeyPositions n
     colour =
-      if (contains fingering keyNumber) then (graytone 0.8) else white
+      if (contains fingering keyNumber) then highlightColor else white
     keyedCircle =
       if (contains fingering keyNumber) then
         smallCircle
@@ -119,7 +144,7 @@ whiteKey fingering n =
       <>
         filled
           (fillColor colour)
-          (rectangle (xOffset + 2.0) (yOffset + 2.0) (whiteKeyWidth - 4.0) (whiteKeyLength - 4.0))
+          (rectangle (xOffset + whiteKeyBorder) (yOffset + whiteKeyBorder) (whiteKeyWidth - 2.0 * whiteKeyBorder) (whiteKeyLength - 2.0 * whiteKeyBorder))
       <>
         keyedCircle
 
@@ -130,7 +155,7 @@ blackKey fingering keyNumber =
     xOffset = keyboardxOffset + keyOffset
     yOffset = keyboardyOffset
     colour =
-      if (contains fingering keyNumber) then (graytone 0.8) else black
+      if (contains fingering keyNumber) then highlightColor else black
     keyedCircle =
       if (contains fingering keyNumber) then
         smallCircle
@@ -146,7 +171,7 @@ blackKey fingering keyNumber =
       <>
         filled
           (fillColor colour)
-          (rectangle (xOffset + 1.5) (yOffset + 1.5) (blackKeyWidth - 3.0) (blackKeyLength - 3.0))
+          (rectangle (xOffset + blackKeyBorder) (yOffset + blackKeyBorder) (blackKeyWidth - 2.0 * blackKeyBorder) (blackKeyLength - 2.0 * blackKeyBorder))
       <>
         keyedCircle
 
@@ -173,7 +198,7 @@ blackKeys fingering =
 smallCircle :: Color -> Number -> Number -> Drawing
 smallCircle colour xpos ypos =
   let
-    radius = 0.3 * cellSize
+    radius = circleRadiusRatio * cellSize
   in
     filled
       (fillColor colour)
@@ -184,7 +209,7 @@ smallCircle colour xpos ypos =
 title :: String -> Drawing
 title name =
   let
-    theFont = font sansSerif 60 bold
+    theFont = font sansSerif titleFontSize bold
     -- rough heuristic for the width in pixels
     textWidth = (cellSize * 1.10) * (toNumber $ Str.length name)
     -- roughly center
