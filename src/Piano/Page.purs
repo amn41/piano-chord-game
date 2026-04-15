@@ -60,8 +60,6 @@ import Type.Proxy (Proxy(..))
 
 type Slot = H.Slot Query Void
 
--- import Debug.Trace (spy)
-
 type State =
   { mGraphicsContext :: Maybe Context2D
   , mCanvas :: Maybe CanvasElement
@@ -241,15 +239,7 @@ component =
         mKey = fingeredKey { x, y }
       if (isJust mKey) then do
         let
-          {-}
-          foo = spy "X:" x
-          bar = spy "Y:" y
-          -}
           key = unsafePartial (fromJust mKey)
-          {-}
-          foo = spy "string:" fstring.stringNumber
-          bar = spy "fret:" fstring.fretNumber
-          -}
           newFingering = alterFingering key state.chordShape.fingering
           newChordShape = state.chordShape { fingering = newFingering }
         _ <- H.modify (\st -> st { chordShape = newChordShape, errorText = "" })
@@ -302,11 +292,6 @@ component =
         canvasElement = unsafePartial (fromJust mCanvasElement)
       left <- H.liftEffect $ offsetLeft canvasElement
       top <- H.liftEffect $ offsetTop canvasElement
-      {-}
-      let
-        foo = spy "Left:" left
-        bar = spy "Top:" top
-      -}
       _ <- H.modify (\st -> st { canvasPosition = { left, top } })
       pure (Just next)
     LoadInstruments next -> do
