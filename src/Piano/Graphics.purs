@@ -8,7 +8,7 @@ module Piano.Graphics
 
 import Prelude
 
-import Color (Color, black, white, graytone)
+import Color (Color, rgb)
 import Data.Array (index, range)
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Foldable (foldl)
@@ -95,10 +95,22 @@ whiteKeyLength :: Number
 whiteKeyLength =
   cellSize * 9.0
 
+-- | Cadence palette
+ink :: Color
+ink = rgb 28 19 64
+
+paper :: Color
+paper = rgb 255 244 214
+
+tonic :: Color
+tonic = rgb 255 77 141
+
+dominant :: Color
+dominant = rgb 255 210 63
+
 -- | highlight color for selected keys
 highlightColor :: Color
-highlightColor =
-  graytone 0.8
+highlightColor = tonic
 
 -- | border width for white keys
 whiteKeyBorder :: Number
@@ -128,18 +140,18 @@ whiteKey fingering n =
     keyNumber :: Int
     keyNumber = fromMaybe (-1) $ index whiteKeyPositions n
     colour =
-      if (contains fingering keyNumber) then highlightColor else white
+      if (contains fingering keyNumber) then highlightColor else paper
     keyedCircle =
       if (contains fingering keyNumber) then
         smallCircle
-          black
+          ink
           (xOffset + (whiteKeyWidth * 0.5))
           (yOffset + (whiteKeyLength * 0.8))
       else
         mempty
   in
     filled
-      (fillColor black)
+      (fillColor ink)
       (rectangle xOffset yOffset whiteKeyWidth whiteKeyLength)
       <>
         filled
@@ -155,18 +167,18 @@ blackKey fingering keyNumber =
     xOffset = keyboardxOffset + keyOffset
     yOffset = keyboardyOffset
     colour =
-      if (contains fingering keyNumber) then highlightColor else black
+      if (contains fingering keyNumber) then dominant else ink
     keyedCircle =
       if (contains fingering keyNumber) then
         smallCircle
-          black
+          ink
           (xOffset + (blackKeyWidth * 0.5))
           (yOffset + (blackKeyLength * 0.6))
       else
         mempty
   in
     filled
-      (fillColor black)
+      (fillColor ink)
       (rectangle xOffset yOffset blackKeyWidth blackKeyLength)
       <>
         filled
@@ -215,7 +227,7 @@ title name =
     -- roughly center
     titlexOffset = keyboardxOffset + ((keyboardWidth - textWidth) / 2.0)
   in
-    text theFont titlexOffset titleDepth (fillColor white) name
+    text theFont titlexOffset titleDepth (fillColor paper) name
 
 -- | work out a newly fingered Key from the mouse click coordinates
 fingeredKey :: MouseCoordinates -> Maybe Int
